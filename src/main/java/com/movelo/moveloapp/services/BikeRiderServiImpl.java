@@ -2,7 +2,7 @@ package com.movelo.moveloapp.services;
 
 import java.util.Optional;
 
-import com.movelo.moveloapp.models.BikeRider;
+import com.movelo.moveloapp.models.Biciusuario;
 import com.movelo.moveloapp.repositories.BikeRiderRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +24,16 @@ public class BikeRiderServiImpl implements BikeRiderService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<BikeRider> findByEmail(String email) {
+    public Optional<Biciusuario> findByEmail(String email) {
 
         return repo.findById(email);
     }
 
     @Override
     @Transactional
-    public BikeRider save(BikeRider bikeRider) {
+    public Biciusuario save(Biciusuario Biciusuario) {
 
-        return repo.save(bikeRider);
+        return repo.save(Biciusuario);
     }
 
 }

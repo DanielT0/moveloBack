@@ -2,7 +2,7 @@ package com.movelo.moveloapp.controllers;
 
 import java.util.Optional;
 
-import com.movelo.moveloapp.models.BikeRider;
+import com.movelo.moveloapp.models.Biciusuario;
 import com.movelo.moveloapp.services.BikeRiderService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class BikeRiderController {
     private BikeRiderService service;
 
     @PostMapping
-    public ResponseEntity<?> createRider(@RequestBody BikeRider rider) {
+    public ResponseEntity<?> createRider(@RequestBody Biciusuario rider) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(rider));
     }
 
@@ -37,4 +37,5 @@ public class BikeRiderController {
 
         return ResponseEntity.ok(oRider);
     }
+
 }

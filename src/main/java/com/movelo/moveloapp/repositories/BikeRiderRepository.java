@@ -1,9 +1,9 @@
 package com.movelo.moveloapp.repositories;
 
-import com.movelo.moveloapp.models.BikeRider;
+import com.movelo.moveloapp.models.Biciusuario;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BikeRiderRepository extends JpaRepository<BikeRider, String> {
+public interface BikeRiderRepository extends JpaRepository<Biciusuario, String> {
 
 }
