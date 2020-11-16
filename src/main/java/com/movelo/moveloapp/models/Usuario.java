@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Table(name = "usuario")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario implements Serializable {
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false, unique = true)
     private int id;
     @Column(length = 50, nullable = false, unique = true)
     private String correo;

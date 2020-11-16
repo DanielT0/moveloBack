@@ -1,14 +1,12 @@
 package com.movelo.moveloapp.models;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "biciusuario")
-public class Biciusuario extends Usuario implements Serializable {
+public class Biciusuario extends Usuario {
     @Column(length = 50, nullable = false, unique = true)
     private String cc;
     // private ArrayList<Bicicleta> bikes;
