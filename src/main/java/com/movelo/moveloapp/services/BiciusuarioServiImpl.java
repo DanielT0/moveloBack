@@ -47,7 +47,6 @@ public class BiciusuarioServiImpl implements BiciusuarioService {
     @Override
     @Transactional
     public Boolean checkUser(Biciusuario rider) {
-
         boolean checked = false;
         StoredProcedureQuery query = entityManager.createStoredProcedureQuery("userRegister");
         query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
