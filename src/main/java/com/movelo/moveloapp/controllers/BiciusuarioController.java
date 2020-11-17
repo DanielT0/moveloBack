@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,7 +24,8 @@ public class BiciusuarioController {
     @Autowired
     private BiciusuarioService service;
 
-    private GestorProxy proxy = new GestorProxy();
+    @Autowired
+    private GestorProxy proxy;
 
     @PostMapping
     public ResponseEntity<?> createRider(@RequestBody Biciusuario rider) {
@@ -37,15 +39,16 @@ public class BiciusuarioController {
         return ResponseEntity.status(status).body(message);
     }
 
-    @GetMapping("/{email}")
-    public ResponseEntity<?> getUserByEmail(@PathVariable(value = "email") String email) {
-        Optional oRider = service.findByEmail(email);
+    @GetMapping
+    public ResponseEntity<?> getUserByEmail(@RequestParam(value = "email") String email,
+            @RequestParam(value = "pass") String pass) {
+        Biciusuario userLogged = proxy.login(email, pass);
 
-        if (!oRider.isPresent()) {
+        if (userLogged == null) {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok(oRider);
+        return ResponseEntity.ok(userLogged);
     }
 
 }
