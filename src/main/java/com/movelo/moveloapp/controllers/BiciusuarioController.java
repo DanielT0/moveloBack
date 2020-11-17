@@ -22,9 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class BiciusuarioController {
 
     @Autowired
-    private BiciusuarioService service;
-
-    @Autowired
     private GestorProxy proxy;
 
     @PostMapping

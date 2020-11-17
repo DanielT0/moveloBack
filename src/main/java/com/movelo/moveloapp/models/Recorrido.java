@@ -18,9 +18,8 @@ public class Recorrido {
 
     }
 
-    public RegistroGeografico obtenerRegistroIncial
-    {
-
+    public RegistroGeografico obtenerRegistroIncial() {
+        return null;
     }
 
     public Biciusuario getUsuario() {
