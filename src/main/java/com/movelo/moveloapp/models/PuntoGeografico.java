@@ -1,6 +1,11 @@
 package com.movelo.moveloapp.models;
 
-public class PuntoGeografico {
+import java.io.Serializable;
+
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
+public class PuntoGeografico implements Serializable {
 
     private Double latitude;
     private Double longitude;
@@ -19,6 +24,14 @@ public class PuntoGeografico {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public PuntoGeografico(Double latitude, Double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public PuntoGeografico() {
     }
 
 }

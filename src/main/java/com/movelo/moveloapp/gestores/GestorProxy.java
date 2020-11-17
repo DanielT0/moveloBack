@@ -1,11 +1,11 @@
 package com.movelo.moveloapp.gestores;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.movelo.moveloapp.facade.FacadeGestores;
 import com.movelo.moveloapp.models.Biciusuario;
+import com.movelo.moveloapp.models.RegistroGeografico;
 import com.movelo.moveloapp.services.BiciusuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +18,7 @@ public class GestorProxy {
     private FacadeGestores facadeGestores;
     @Autowired
     private BiciusuarioService service;
+    private Biciusuario usuarioActual;
 
     public boolean registerBiciusuario(Biciusuario usuario) {
         return facadeGestores.agregarBiciusuario(usuario);
@@ -30,9 +31,15 @@ public class GestorProxy {
             user = (Biciusuario) oRider.get();
             if (!(user.getCorreo().equals(email) && user.getPassword().equals(pass))) {
                 user = null;
+            } else {
+                usuarioActual = user;
             }
         }
         return user;
+    }
+
+    public boolean finalizarRecorrido(List<RegistroGeografico> listaPuntos, Double distanciaTotal) {
+        return facadeGestores.finalizarRecorrido(listaPuntos, distanciaTotal, usuarioActual);
     }
 
     public FacadeGestores getFacadeGestores() {
@@ -42,4 +49,5 @@ public class GestorProxy {
     public void setFacadeGestores(FacadeGestores facadeGestores) {
         this.facadeGestores = facadeGestores;
     }
+
 }

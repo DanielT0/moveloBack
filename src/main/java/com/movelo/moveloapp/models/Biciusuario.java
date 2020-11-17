@@ -9,9 +9,13 @@ import javax.persistence.Table;
 public class Biciusuario extends Usuario {
     @Column(length = 50, nullable = false, unique = true)
     private String cc;
-    // private ArrayList<Bicicleta> bikes;
     @Column(length = 50, nullable = false, unique = true)
     private String nombre;
+
+    /*
+     * @OneToOne(mappedBy = "usuario") private Recorrido deBiciusuario;
+     */
+
     @Column(nullable = false, unique = true)
     private String direccion;
     @Column(nullable = false, unique = true)
@@ -96,5 +100,12 @@ public class Biciusuario extends Usuario {
         this.metrosNoPlantados = 0;
         this.metrosRecorridos = 0;
     }
+
+    /*
+     * public Recorrido getDeBiciusuario() { return deBiciusuario; }
+     * 
+     * public void setDeBiciusuario(Recorrido deBiciusuario) { this.deBiciusuario =
+     * deBiciusuario; }
+     */
 
 }
