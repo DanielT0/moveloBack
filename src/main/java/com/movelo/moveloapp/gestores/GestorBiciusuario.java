@@ -4,7 +4,9 @@ import com.movelo.moveloapp.models.Biciusuario;
 import com.movelo.moveloapp.services.BiciusuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GestorBiciusuario {
 
     @Autowired
@@ -17,6 +19,14 @@ public class GestorBiciusuario {
             saved = service.save(usuario);
         }
         return checked;
+    }
+
+    public BiciusuarioService getService() {
+        return service;
+    }
+
+    public void setService(BiciusuarioService service) {
+        this.service = service;
     }
 
 }
