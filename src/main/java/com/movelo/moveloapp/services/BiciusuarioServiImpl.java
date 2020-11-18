@@ -53,16 +53,18 @@ public class BiciusuarioServiImpl implements BiciusuarioService {
         query.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
         query.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
         query.registerStoredProcedureParameter(4, String.class, ParameterMode.IN);
-        query.registerStoredProcedureParameter(5, Integer.class, ParameterMode.OUT);
+        query.registerStoredProcedureParameter(5, String.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter(6, Integer.class, ParameterMode.OUT);
 
-        query.setParameter(1, rider.getNombre());
-        query.setParameter(2, rider.getCorreo());
-        query.setParameter(3, rider.getDireccion());
-        query.setParameter(4, rider.getTelefono());
+        query.setParameter(1, rider.getCc());
+        query.setParameter(2, rider.getNombre());
+        query.setParameter(3, rider.getCorreo());
+        query.setParameter(4, rider.getDireccion());
+        query.setParameter(5, rider.getTelefono());
 
         query.execute();
 
-        Integer response = (Integer) query.getOutputParameterValue(5);
+        Integer response = (Integer) query.getOutputParameterValue(6);
         if (response == 1)
             checked = true;
         return checked;

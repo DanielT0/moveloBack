@@ -16,9 +16,9 @@ public class Biciusuario extends Usuario {
      * @OneToOne(mappedBy = "usuario") private Recorrido deBiciusuario;
      */
 
-    @Column(nullable = false, unique = true)
+    @Column(length = 50, nullable = false, unique = true)
     private String direccion;
-    @Column(nullable = false, unique = true)
+    @Column(length = 50, nullable = false, unique = true)
     private String telefono;
     @Column(nullable = false)
     private Double huellaCarbonoAcumulada;
@@ -99,6 +99,18 @@ public class Biciusuario extends Usuario {
         this.huellaCarbonoAcumulada = 0.0;
         this.metrosNoPlantados = 0;
         this.metrosRecorridos = 0;
+    }
+
+    public Biciusuario(String cc, String nombre, String direccion, String telefono, String correo, String password,
+            Double huella, int metrosReco) {
+        super(correo, password);
+        this.cc = cc;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.huellaCarbonoAcumulada = huella;
+        this.metrosNoPlantados = 0;
+        this.metrosRecorridos = metrosReco;
     }
 
     /*

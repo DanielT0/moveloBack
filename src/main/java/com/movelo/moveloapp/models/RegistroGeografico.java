@@ -2,20 +2,23 @@ package com.movelo.moveloapp.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
+
 @Entity
-@Table(name = "recorrido")
+@Table(name = "registro_geo")
 public class RegistroGeografico extends PuntoGeografico {
 
+    @Id
+    @GeneratedValue
     private Long id;
 
     @Column(length = 50, nullable = false, unique = true)
+    @ColumnDefault("'NO_SUPLIED'")
     private String timeStamp;
 
     @ManyToOne
@@ -49,8 +52,6 @@ public class RegistroGeografico extends PuntoGeografico {
 
     }
 
-    @Id
-    @GeneratedValue
     public Long getId() {
         return id;
     }
