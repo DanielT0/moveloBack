@@ -11,4 +11,6 @@ public interface ArbolService {
     public Arbol getArbol(Double precio);
 
     public List<Arbol> getArbolesUsuario(Biciusuario usuario);
+
+    public List<Arbol> getTodosArboles();
 }

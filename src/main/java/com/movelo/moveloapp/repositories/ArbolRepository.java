@@ -13,5 +13,5 @@ import org.springframework.data.jpa.repository.Query;
 public interface ArbolRepository extends JpaRepository<ArbolBiciusuario, ArbolUsuarioId> {
 
     @Query("select a from ArbolBiciusuario a where a.usuario = ?1")
-    public List<ArbolBiciusuario> getArbolesPorUsuario(Biciusuario usuarioCorreo);
+    public List<ArbolBiciusuario> getArbolesPorUsuario(Biciusuario usuario);
 }

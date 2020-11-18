@@ -2,7 +2,6 @@ package com.movelo.moveloapp.controllers;
 
 import com.movelo.moveloapp.controllers.utils.ActualizarKmWrapper;
 import com.movelo.moveloapp.gestores.GestorProxy;
-import com.movelo.moveloapp.models.Arbol;
 import com.movelo.moveloapp.models.Biciusuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +52,22 @@ public class BiciusuarioController {
             status = HttpStatus.NOT_MODIFIED;
         }
         return ResponseEntity.status(status).body(checked);
+    }
+
+    @PostMapping("/footprint")
+    public ResponseEntity<?> actualizarHuella(@RequestBody ActualizarKmWrapper body) {
+        boolean checked = proxy.actualizarHuella(body.getEmail(), body.getDistance());
+        HttpStatus status = HttpStatus.CREATED;
+        if (!checked) {
+            status = HttpStatus.NOT_MODIFIED;
+        }
+        return ResponseEntity.status(status).body(checked);
+    }
+
+    @GetMapping("/tree")
+    public ResponseEntity<?> getCantiArboles(@RequestBody String correo) {
+        int cantidad = proxy.getCantidadArboles(correo);
+        return ResponseEntity.ok(cantidad);
     }
 
 }
