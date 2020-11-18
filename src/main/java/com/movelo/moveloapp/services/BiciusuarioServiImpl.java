@@ -64,7 +64,7 @@ public class BiciusuarioServiImpl implements BiciusuarioService {
 
         query.execute();
 
-        Integer response = (Integer) query.getOutputParameterValue(6);
+        Integer response = (Integer) query.getOutputParameterValue(5);
         if (response == 1)
             checked = true;
         return checked;

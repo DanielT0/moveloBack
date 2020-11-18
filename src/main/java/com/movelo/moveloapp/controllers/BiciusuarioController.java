@@ -44,7 +44,6 @@ public class BiciusuarioController {
 
         return ResponseEntity.ok(userLogged);
     }
-
     @PostMapping("/kmCovered")
     public ResponseEntity<?> actualizarKm(@RequestBody ActualizarKmWrapper body) {
         boolean checked = proxy.actualizarDistancia(body.getEmail(), body.getDistance());

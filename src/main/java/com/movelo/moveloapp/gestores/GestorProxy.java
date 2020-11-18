@@ -50,5 +50,9 @@ public class GestorProxy {
     public boolean actualizarDistancia(String correo, Double kmRecorridos) {
         return facadeGestores.actualizarDistancia(correo, kmRecorridos);
     }
+    public double huella(Biciusuario rider, double huella){
+        facadeGestores.calcularHuellaTotal(rider);
+        return huella;
+    }
 
 }
