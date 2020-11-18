@@ -25,4 +25,12 @@ public class GestorArboles {
     public List<Arbol> getArbolesPorUsuario(Biciusuario usuario) {
         return service.getArbolesUsuario(usuario);
     }
+
+    public List<Arbol> getArbolesTodos() {
+        return service.getTodosArboles();
+    }
+
+    public int getCantiArboles(Biciusuario usuario) {
+        return service.getArbolesUsuario(usuario).size();
+    }
 }

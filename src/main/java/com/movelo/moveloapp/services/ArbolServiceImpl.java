@@ -44,4 +44,13 @@ public class ArbolServiceImpl implements ArbolService {
         return null;
     }
 
+    @Override
+    public List<Arbol> getTodosArboles() {
+        List<ArbolBiciusuario> listaArbolUsuario = repo.findAll();
+        List<Arbol> arboles = new ArrayList<>();
+        for (ArbolBiciusuario temp : listaArbolUsuario)
+            arboles.add(temp.getArbol());
+        return arboles;
+    }
+
 }

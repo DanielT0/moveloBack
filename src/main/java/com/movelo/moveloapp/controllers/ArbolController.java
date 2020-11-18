@@ -1,6 +1,8 @@
 package com.movelo.moveloapp.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.movelo.moveloapp.gestores.GestorProxy;
 import com.movelo.moveloapp.models.Arbol;
@@ -21,9 +23,22 @@ public class ArbolController {
     @GetMapping
     public ResponseEntity<?> getArbolesByUser(@RequestParam(value = "email") String correo) {
         List<Arbol> arboles = proxy.getArbolesPorUsuario(correo);
+        HashMap<String, List<Arbol>> arbolMap = new HashMap<>();
+        arbolMap.put("arboles", arboles);
         if (arboles == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(arboles);
+        return ResponseEntity.ok(arbolMap);
+    }
+
+    @GetMapping("/todos")
+    public ResponseEntity<?> getArbolesTodos() {
+        List<Arbol> arboles = proxy.getTodosArbol();
+        HashMap<String, List<Arbol>> arbolMap = new HashMap<>();
+        arbolMap.put("arboles", arboles);
+        if (arboles == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(arbolMap);
     }
 }

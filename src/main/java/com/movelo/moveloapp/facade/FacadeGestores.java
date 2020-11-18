@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.movelo.moveloapp.gestores.GestorArboles;
 import com.movelo.moveloapp.gestores.GestorBiciusuario;
+import com.movelo.moveloapp.gestores.GestorHuella;
+import com.movelo.moveloapp.gestores.GestorProxy;
 import com.movelo.moveloapp.gestores.GestorHuellaCarbono;
 import com.movelo.moveloapp.gestores.GestorRecorrido;
 import com.movelo.moveloapp.models.Arbol;
@@ -29,16 +31,11 @@ public class FacadeGestores {
     private GestorArboles gestArboles;
     private GestorHuellaCarbono gestorHuellaCarbono;
 
+    @Autowired
+    private GestorHuella gestHuella;
+
     public boolean agregarBiciusuario(Biciusuario usuario) {
         return gestBiciUsuario.agregarBiciusuario(usuario);
-    }
-
-    public GestorBiciusuario getGestBiciUsuario() {
-        return gestBiciUsuario;
-    }
-
-    public void setGestBiciUsuario(GestorBiciusuario gestBiciUsuario) {
-        this.gestBiciUsuario = gestBiciUsuario;
     }
 
     public boolean finalizarRecorrido(List<RegistroGeografico> listaPuntos, Double distanciaTotal,
@@ -56,19 +53,49 @@ public class FacadeGestores {
 
     public boolean actualizarDistancia(String correo, Double kmRecorridos) {
         Double nuevaDistancia = gestBiciUsuario.actualizarDistanciaReco(correo, kmRecorridos);
-        System.out.println(getArbol(nuevaDistancia));
-        return true;
+        if (nuevaDistancia != null) {
+            System.out.println(getArbol(nuevaDistancia));
+            return true;
+        }
+        return false;
     }
 
-    public double calcularHuellaTotal(Biciusuario ciclista){
+    public boolean actualizarHuella(String correo, Double kmRecorridos) {
+        Double nuevaHuella = gestHuella.actualizarHuella(correo, kmRecorridos);
+        if (nuevaHuella != null) {
+            System.out.println(nuevaHuella);
+            return true;
+        }
+        return false;
+    }
+
+    public GestorBiciusuario getGestBiciUsuario() {
+        return gestBiciUsuario;
+    }
+
+    public void setGestBiciUsuario(GestorBiciusuario gestBiciUsuario) {
+        this.gestBiciUsuario = gestBiciUsuario;
+    }
+
+    public int getCantiArboles(Biciusuario usuario) {
+        return gestArboles.getCantiArboles(usuario);
+    }
+
+    public List<Arbol> getTodosArboles() {
+        return gestArboles.getArbolesTodos();
+    }
+
+    public double calcularHuellaTotal(Biciusuario ciclista) {
         double huella = gestorHuellaCarbono.calcularHuellaTotal(ciclista.getMetrosRecorridos());
         actualizarHuella(ciclista, huella);
         return huella;
     }
-    public void actualizarHuella(Biciusuario ciclista, double huella){
+
+    public void actualizarHuella(Biciusuario ciclista, double huella) {
         gestBiciUsuario.actualizarHuella(ciclista, huella);
     }
-    public double calcularHuellaRecorrido(Recorrido recorrido){
+
+    public double calcularHuellaRecorrido(Recorrido recorrido) {
         double huella = gestorHuellaCarbono.calcularHuellaRecorrido(recorrido);
         return huella;
     }

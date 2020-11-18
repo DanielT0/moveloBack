@@ -39,12 +39,22 @@ public class GestorProxy {
         return user;
     }
 
+    public Biciusuario getBiciusuario(String email) {
+        Optional oRider = service.findByEmail(email);
+        Biciusuario user = null;
+        if (oRider.isPresent()) {
+            user = (Biciusuario) oRider.get();
+            usuarioActual = user;
+        }
+        return user;
+    }
+
     public boolean finalizarRecorrido(List<RegistroGeografico> listaPuntos, Double distanciaTotal) {
         return facadeGestores.finalizarRecorrido(listaPuntos, distanciaTotal, usuarioActual);
     }
 
     public List<Arbol> getArbolesPorUsuario(String correo) {
-        return facadeGestores.getArbolesPorUsuario(usuarioActual);
+        return facadeGestores.getArbolesPorUsuario(getBiciusuario(correo));
     }
 
     public boolean actualizarDistancia(String correo, Double kmRecorridos) {
@@ -53,6 +63,18 @@ public class GestorProxy {
     public double huella(Biciusuario rider, double huella){
         facadeGestores.calcularHuellaTotal(rider);
         return huella;
+    }
+
+    public boolean actualizarHuella(String correo, Double kmRecorridos) {
+        return facadeGestores.actualizarHuella(correo, kmRecorridos);
+    }
+
+    public int getCantidadArboles(String correo) {
+        return facadeGestores.getCantiArboles(usuarioActual);
+    }
+
+    public List<Arbol> getTodosArbol() {
+        return facadeGestores.getTodosArboles();
     }
 
 }
