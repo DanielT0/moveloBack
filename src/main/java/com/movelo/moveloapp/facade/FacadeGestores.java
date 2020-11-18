@@ -86,7 +86,7 @@ public class FacadeGestores {
     }
 
     public double calcularHuellaTotal(Biciusuario ciclista) {
-        double huella = gestorHuellaCarbono.calcularHuellaTotal(ciclista.getMetrosRecorridos());
+        double huella = gestorHuellaCarbono.calcularHuellaTotal(ciclista.getkmRecorridos());
         actualizarHuella(ciclista, huella);
         return huella;
     }

@@ -64,7 +64,7 @@ public class BiciusuarioServiImpl implements BiciusuarioService {
 
         query.execute();
 
-        Integer response = (Integer) query.getOutputParameterValue(5);
+        Integer response = (Integer) query.getOutputParameterValue(6);
         if (response == 1)
             checked = true;
         return checked;
@@ -111,6 +111,12 @@ public class BiciusuarioServiImpl implements BiciusuarioService {
 
         Double response = (Double) query.getOutputParameterValue(3);
         return response;
+    }
+
+    @Override
+    public Boolean checkUpdateHuella(Biciusuario rider, double huella) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
