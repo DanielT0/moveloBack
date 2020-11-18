@@ -49,5 +49,9 @@ public class GestorProxy {
     public void setFacadeGestores(FacadeGestores facadeGestores) {
         this.facadeGestores = facadeGestores;
     }
+    public double huella(Biciusuario rider, double huella){
+        facadeGestores.calcularHuellaTotal(rider);
+        return huella;
+    }
 
 }

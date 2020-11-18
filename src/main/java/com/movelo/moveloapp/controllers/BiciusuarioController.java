@@ -44,4 +44,5 @@ public class BiciusuarioController {
         return ResponseEntity.ok(userLogged);
     }
 
+    
 }
