@@ -6,9 +6,11 @@ import com.movelo.moveloapp.gestores.GestorArboles;
 import com.movelo.moveloapp.gestores.GestorBiciusuario;
 import com.movelo.moveloapp.gestores.GestorHuella;
 import com.movelo.moveloapp.gestores.GestorProxy;
+import com.movelo.moveloapp.gestores.GestorHuellaCarbono;
 import com.movelo.moveloapp.gestores.GestorRecorrido;
 import com.movelo.moveloapp.models.Arbol;
 import com.movelo.moveloapp.models.Biciusuario;
+import com.movelo.moveloapp.models.Recorrido;
 import com.movelo.moveloapp.models.RegistroGeografico;
 import com.movelo.moveloapp.models.Usuario;
 
@@ -27,6 +29,7 @@ public class FacadeGestores {
 
     @Autowired
     private GestorArboles gestArboles;
+    private GestorHuellaCarbono gestorHuellaCarbono;
 
     @Autowired
     private GestorHuella gestHuella;
@@ -82,4 +85,18 @@ public class FacadeGestores {
         return gestArboles.getArbolesTodos();
     }
 
+    public double calcularHuellaTotal(Biciusuario ciclista) {
+        double huella = gestorHuellaCarbono.calcularHuellaTotal(ciclista.getMetrosRecorridos());
+        actualizarHuella(ciclista, huella);
+        return huella;
+    }
+
+    public void actualizarHuella(Biciusuario ciclista, double huella) {
+        gestBiciUsuario.actualizarHuella(ciclista, huella);
+    }
+
+    public double calcularHuellaRecorrido(Recorrido recorrido) {
+        double huella = gestorHuellaCarbono.calcularHuellaRecorrido(recorrido);
+        return huella;
+    }
 }

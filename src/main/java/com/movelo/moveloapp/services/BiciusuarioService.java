@@ -17,4 +17,5 @@ public interface BiciusuarioService {
     public Double actualizarKm(String correo, Double kmReco);
 
     public Double actualizarHuella(String correo, Double huellaNueva);
+    public Boolean checkUpdateHuella(Biciusuario rider, double huella);
 }
