@@ -4,24 +4,32 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Table(name = "recorrido")
 public class Recorrido implements Serializable {
     @Column(length = 50, nullable = false, unique = true)
+    @ColumnDefault("0")
     private boolean isInRuta;
 
     @Column(length = 50, nullable = false, unique = true)
+    @ColumnDefault("-1")
     private Double distanciaTotal;
 
+    @Id
+    @GeneratedValue
     private Long id;
 
     /*
@@ -30,7 +38,7 @@ public class Recorrido implements Serializable {
      * @JoinColumn(name = "usuario_id") private Biciusuario usuario;
      */
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RegistroGeografico> registro = new ArrayList<RegistroGeografico>();
+    private List<RegistroGeografico> registro = new ArrayList<>();
     /*
      * @OneToOne
      * 
@@ -62,8 +70,11 @@ public class Recorrido implements Serializable {
         return registro;
     }
 
-    public void setRegistro(List<RegistroGeografico> registro) {
-        this.registro = registro;
+    public void setRegistro(List<RegistroGeografico> listaPuntos) {
+        for (RegistroGeografico registro : listaPuntos) {
+            registro.setOwner(this);
+        }
+        this.registro = listaPuntos;
     }
 
     public boolean isInRuta() {
@@ -113,8 +124,6 @@ public class Recorrido implements Serializable {
         this.distanciaTotal = distanciaTotal;
     }
 
-    @Id
-    @GeneratedValue
     public Long getId() {
         return id;
     }

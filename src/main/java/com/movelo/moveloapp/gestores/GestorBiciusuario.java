@@ -14,19 +14,14 @@ public class GestorBiciusuario {
 
     public Boolean agregarBiciusuario(Biciusuario usuario) {
         boolean checked = service.checkUser(usuario);
-        Biciusuario saved = null;
+        boolean saved = false;
+        Biciusuario obj = null;
         if (checked) {
-            saved = service.save(usuario);
+            obj = service.save(usuario);
         }
-        return checked;
+        if (obj != null) {
+            saved = true;
+        }
+        return saved;
     }
-
-    public BiciusuarioService getService() {
-        return service;
-    }
-
-    public void setService(BiciusuarioService service) {
-        this.service = service;
-    }
-
 }
