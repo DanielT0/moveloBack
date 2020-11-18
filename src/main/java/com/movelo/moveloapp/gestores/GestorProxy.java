@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.movelo.moveloapp.facade.FacadeGestores;
+import com.movelo.moveloapp.models.Arbol;
 import com.movelo.moveloapp.models.Biciusuario;
 import com.movelo.moveloapp.models.RegistroGeografico;
 import com.movelo.moveloapp.services.BiciusuarioService;
@@ -42,12 +43,12 @@ public class GestorProxy {
         return facadeGestores.finalizarRecorrido(listaPuntos, distanciaTotal, usuarioActual);
     }
 
-    public FacadeGestores getFacadeGestores() {
-        return facadeGestores;
+    public List<Arbol> getArbolesPorUsuario(String correo) {
+        return facadeGestores.getArbolesPorUsuario(usuarioActual);
     }
 
-    public void setFacadeGestores(FacadeGestores facadeGestores) {
-        this.facadeGestores = facadeGestores;
+    public boolean actualizarDistancia(String correo, Double kmRecorridos) {
+        return facadeGestores.actualizarDistancia(correo, kmRecorridos);
     }
     public double huella(Biciusuario rider, double huella){
         facadeGestores.calcularHuellaTotal(rider);

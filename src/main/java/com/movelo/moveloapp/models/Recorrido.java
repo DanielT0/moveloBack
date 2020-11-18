@@ -21,7 +21,7 @@ import org.hibernate.annotations.ColumnDefault;
 @Entity
 @Table(name = "recorrido")
 public class Recorrido implements Serializable {
-    @Column(length = 50, nullable = false, unique = true)
+    @Column(length = 50, nullable = false)
     @ColumnDefault("0")
     private boolean isInRuta;
 

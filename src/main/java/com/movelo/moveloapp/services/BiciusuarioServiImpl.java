@@ -84,11 +84,33 @@ public class BiciusuarioServiImpl implements BiciusuarioService {
         return lastId;
     }
 
-    public Boolean checkUpdateHuella(Biciusuario rider, double huella){
-        double actual = rider.getHuellaCarbonoAcumulada();
-        double huellaTotal = huella + actual;
-        rider.setHuellaCarbonoAcumulada(huellaTotal);
-        return true;
+    @Override
+    public Double actualizarKm(String correo, Double kmReco) {
+        StoredProcedureQuery query = entityManager.createStoredProcedureQuery("actualizarKm");
+        query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter(2, Double.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter(3, Double.class, ParameterMode.OUT);
+
+        query.setParameter(1, correo);
+        query.setParameter(2, kmReco);
+
+        query.execute();
+        Double response = (Double) query.getOutputParameterValue(3);
+        return response;
+    }
+
+    @Override
+    public Double actualizarHuella(String correo, Double huellaNueva) {
+        StoredProcedureQuery query = entityManager.createStoredProcedureQuery("actualizarHuella");
+        query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter(2, Double.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter(3, Double.class, ParameterMode.OUT);
+
+        query.setParameter(1, correo);
+        query.setParameter(2, huellaNueva);
+
+        Double response = (Double) query.getOutputParameterValue(3);
+        return response;
     }
 
 }

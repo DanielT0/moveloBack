@@ -30,10 +30,12 @@ public class GestorBiciusuario {
         return service;
     }
 
+    public Double actualizarDistanciaReco(String correo, Double kmRecorridos) {
+        Double nuevaDistancia = service.actualizarKm(correo, kmRecorridos);
+        return nuevaDistancia;
+    }
     public void setService(BiciusuarioService service) {
         this.service = service;
     }
-
-
 
 }
