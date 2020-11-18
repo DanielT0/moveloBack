@@ -17,7 +17,7 @@ public class RegistroGeografico extends PuntoGeografico {
     @GeneratedValue
     private Long id;
 
-    @Column(length = 50, nullable = false, unique = true)
+    @Column(length = 50, nullable = false)
     @ColumnDefault("'NO_SUPLIED'")
     private String timeStamp;
 

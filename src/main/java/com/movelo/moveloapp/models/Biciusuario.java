@@ -1,7 +1,12 @@
 package com.movelo.moveloapp.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,17 +17,15 @@ public class Biciusuario extends Usuario {
     @Column(length = 50, nullable = false, unique = true)
     private String nombre;
 
-    /*
-     * @OneToOne(mappedBy = "usuario") private Recorrido deBiciusuario;
-     */
-
     @Column(length = 50, nullable = false, unique = true)
     private String direccion;
     @Column(length = 50, nullable = false, unique = true)
     private String telefono;
     @Column(nullable = false)
     private Double huellaCarbonoAcumulada;
-    // private List<GeoPoint> ContribuitedTrees;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PuntoGeografico> ContribuitedTrees;
     @Column(nullable = false)
     private int metrosNoPlantados;
     @Column(nullable = false)
@@ -99,6 +102,7 @@ public class Biciusuario extends Usuario {
         this.huellaCarbonoAcumulada = 0.0;
         this.metrosNoPlantados = 0;
         this.metrosRecorridos = 0;
+        ContribuitedTrees = new ArrayList<>();
     }
 
     public Biciusuario(String cc, String nombre, String direccion, String telefono, String correo, String password,
@@ -111,6 +115,7 @@ public class Biciusuario extends Usuario {
         this.huellaCarbonoAcumulada = huella;
         this.metrosNoPlantados = 0;
         this.metrosRecorridos = metrosReco;
+        ContribuitedTrees = new ArrayList<>();
     }
 
     /*

@@ -11,9 +11,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.ColumnDefault;
 
@@ -24,7 +25,7 @@ public class Recorrido implements Serializable {
     @ColumnDefault("0")
     private boolean isInRuta;
 
-    @Column(length = 50, nullable = false, unique = true)
+    @Column(length = 50, nullable = false)
     @ColumnDefault("-1")
     private Double distanciaTotal;
 
@@ -32,18 +33,16 @@ public class Recorrido implements Serializable {
     @GeneratedValue
     private Long id;
 
-    /*
-     * @OneToOne
-     * 
-     * @JoinColumn(name = "usuario_id") private Biciusuario usuario;
-     */
+    @OneToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Biciusuario usuario;
+
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RegistroGeografico> registro = new ArrayList<>();
-    /*
-     * @OneToOne
-     * 
-     * @JoinColumn(name = "incidente_id") private RegistroGeografico incidente;
-     */
+
+    @OneToOne
+    @JoinColumn(name = "incidente_id", nullable = true)
+    private RegistroGeografico incidente;
 
     public boolean guardarRegistro() {
         return false;
@@ -60,11 +59,14 @@ public class Recorrido implements Serializable {
     public RegistroGeografico obtenerRegistroIncial() {
         return registro.get(0);
     }
-    /*
-     * public Biciusuario getUsuario() { return usuario; }
-     * 
-     * public void setUsuario(Biciusuario usuario) { this.usuario = usuario; }
-     */
+
+    public Biciusuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Biciusuario usuario) {
+        this.usuario = usuario;
+    }
 
     public List<RegistroGeografico> getRegistro() {
         return registro;
@@ -85,12 +87,13 @@ public class Recorrido implements Serializable {
         this.isInRuta = isInRuta;
     }
 
-    /*
-     * public RegistroGeografico getIncidente() { return incidente; }
-     * 
-     * public void setIncidente(RegistroGeografico incidente) { this.incidente =
-     * incidente; }
-     */
+    public RegistroGeografico getIncidente() {
+        return incidente;
+    }
+
+    public void setIncidente(RegistroGeografico incidente) {
+        this.incidente = incidente;
+    }
 
     public Double getDistanciaTotal() {
         return distanciaTotal;
@@ -102,25 +105,25 @@ public class Recorrido implements Serializable {
 
     public Recorrido(Biciusuario usuario, List<RegistroGeografico> listaPuntos, boolean isInRuta,
             RegistroGeografico incidente, Double distanciaTotal) {
-        // this.usuario = usuario;
+        this.usuario = usuario;
         for (RegistroGeografico registro : listaPuntos) {
             registro.setOwner(this);
             this.registro.add(registro);
         }
         this.isInRuta = isInRuta;
-        // this.incidente = incidente;
+        this.incidente = incidente;
         this.distanciaTotal = distanciaTotal;
     }
 
     public Recorrido(Biciusuario usuario, List<RegistroGeografico> listaPuntos, Double distanciaTotal) {
-        // this.usuario = usuario;
+        this.usuario = usuario;
         for (RegistroGeografico registro : listaPuntos) {
             registro.setOwner(this);
             this.registro.add(registro);
         }
         this.registro = listaPuntos;
         this.isInRuta = false;
-        // this.incidente = null;
+        this.incidente = null;
         this.distanciaTotal = distanciaTotal;
     }
 
