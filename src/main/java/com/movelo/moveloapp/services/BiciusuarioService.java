@@ -13,4 +13,8 @@ public interface BiciusuarioService {
     public boolean deleteByEmail(String email);
 
     public Boolean checkUser(Biciusuario rider);
+
+    public Double actualizarKm(String correo, Double kmReco);
+
+    public Double actualizarHuella(String correo, Double huellaNueva);
 }

@@ -24,4 +24,9 @@ public class GestorBiciusuario {
         }
         return saved;
     }
+
+    public Double actualizarDistanciaReco(String correo, Double kmRecorridos) {
+        Double nuevaDistancia = service.actualizarKm(correo, kmRecorridos);
+        return nuevaDistancia;
+    }
 }

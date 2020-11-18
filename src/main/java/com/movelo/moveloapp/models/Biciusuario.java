@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -29,7 +30,10 @@ public class Biciusuario extends Usuario {
     @Column(nullable = false)
     private int metrosNoPlantados;
     @Column(nullable = false)
-    private int metrosRecorridos;
+    private Double kmRecorridos;
+
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    private List<Arbol> arboles = new ArrayList<>();
 
     public String getCc() {
         return cc;
@@ -79,18 +83,18 @@ public class Biciusuario extends Usuario {
         this.metrosNoPlantados = metrosNoPlantados;
     }
 
-    public int getMetrosRecorridos() {
-        return metrosRecorridos;
+    public Double getkmRecorridos() {
+        return kmRecorridos;
     }
 
-    public void setMetrosRecorridos(int metrosRecorridos) {
-        this.metrosRecorridos = metrosRecorridos;
+    public void setkmRecorridos(Double kmRecorridos) {
+        this.kmRecorridos = kmRecorridos;
     }
 
     public Biciusuario() {
         this.huellaCarbonoAcumulada = 0.0;
         this.metrosNoPlantados = 0;
-        this.metrosRecorridos = 0;
+        this.kmRecorridos = 0.0;
     }
 
     public Biciusuario(String cc, String nombre, String direccion, String telefono, String correo, String password) {
@@ -101,12 +105,12 @@ public class Biciusuario extends Usuario {
         this.telefono = telefono;
         this.huellaCarbonoAcumulada = 0.0;
         this.metrosNoPlantados = 0;
-        this.metrosRecorridos = 0;
+        this.kmRecorridos = 0.0;
         ContribuitedTrees = new ArrayList<>();
     }
 
     public Biciusuario(String cc, String nombre, String direccion, String telefono, String correo, String password,
-            Double huella, int metrosReco) {
+            Double huella, Double kmReco) {
         super(correo, password);
         this.cc = cc;
         this.nombre = nombre;
@@ -114,15 +118,12 @@ public class Biciusuario extends Usuario {
         this.telefono = telefono;
         this.huellaCarbonoAcumulada = huella;
         this.metrosNoPlantados = 0;
-        this.metrosRecorridos = metrosReco;
+        this.kmRecorridos = kmReco;
         ContribuitedTrees = new ArrayList<>();
     }
 
-    /*
-     * public Recorrido getDeBiciusuario() { return deBiciusuario; }
-     * 
-     * public void setDeBiciusuario(Recorrido deBiciusuario) { this.deBiciusuario =
-     * deBiciusuario; }
-     */
+    public void addArbol(Arbol arb) {
+        this.arboles.add(arb);
+    }
 
 }

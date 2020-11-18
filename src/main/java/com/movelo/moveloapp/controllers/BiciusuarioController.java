@@ -1,6 +1,8 @@
 package com.movelo.moveloapp.controllers;
 
+import com.movelo.moveloapp.controllers.utils.ActualizarKmWrapper;
 import com.movelo.moveloapp.gestores.GestorProxy;
+import com.movelo.moveloapp.models.Arbol;
 import com.movelo.moveloapp.models.Biciusuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +26,11 @@ public class BiciusuarioController {
     public ResponseEntity<?> createRider(@RequestBody Biciusuario rider) {
         boolean checked = proxy.registerBiciusuario(rider);
         HttpStatus status = HttpStatus.CREATED;
-        String message = "El usuario fue creado satisfactoriamente";
+
         if (!checked) {
-            message = "El usuario tiene un atributo que ya existe";
             status = HttpStatus.CONFLICT;
         }
-        return ResponseEntity.status(status).body(message);
+        return ResponseEntity.status(status).body(checked);
     }
 
     @GetMapping
@@ -42,6 +43,16 @@ public class BiciusuarioController {
         }
 
         return ResponseEntity.ok(userLogged);
+    }
+
+    @PostMapping("/kmCovered")
+    public ResponseEntity<?> actualizarKm(@RequestBody ActualizarKmWrapper body) {
+        boolean checked = proxy.actualizarDistancia(body.getEmail(), body.getDistance());
+        HttpStatus status = HttpStatus.CREATED;
+        if (!checked) {
+            status = HttpStatus.NOT_MODIFIED;
+        }
+        return ResponseEntity.status(status).body(checked);
     }
 
 }
