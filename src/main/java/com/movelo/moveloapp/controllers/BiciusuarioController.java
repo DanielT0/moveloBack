@@ -1,5 +1,7 @@
 package com.movelo.moveloapp.controllers;
 
+import java.util.HashMap;
+
 import com.movelo.moveloapp.controllers.utils.ActualizarKmWrapper;
 import com.movelo.moveloapp.gestores.GestorProxy;
 import com.movelo.moveloapp.models.Biciusuario;
@@ -43,6 +45,7 @@ public class BiciusuarioController {
 
         return ResponseEntity.ok(userLogged);
     }
+
     @PostMapping("/kmCovered")
     public ResponseEntity<?> actualizarKm(@RequestBody ActualizarKmWrapper body) {
         boolean checked = proxy.actualizarDistancia(body.getEmail(), body.getDistance());
@@ -67,6 +70,17 @@ public class BiciusuarioController {
     public ResponseEntity<?> getCantiArboles(@RequestBody String correo) {
         int cantidad = proxy.getCantidadArboles(correo);
         return ResponseEntity.ok(cantidad);
+    }
+
+    @GetMapping("/addToUser")
+    public ResponseEntity<?> anadirArbol(@RequestParam(value = "correo") String correo,
+            @RequestParam(value = "precio") Double precio) {
+        boolean checked = proxy.anadirArbol(correo, precio);
+        HttpStatus status = HttpStatus.ACCEPTED;
+        if (!checked) {
+            status = HttpStatus.NOT_MODIFIED;
+        }
+        return ResponseEntity.status(status).body(checked);
     }
 
 }

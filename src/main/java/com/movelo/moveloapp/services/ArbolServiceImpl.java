@@ -11,6 +11,7 @@ import com.movelo.moveloapp.models.Arbol;
 import com.movelo.moveloapp.models.Biciusuario;
 import com.movelo.moveloapp.models.db.ArbolBiciusuario;
 import com.movelo.moveloapp.repositories.ArbolRepository;
+import com.movelo.moveloapp.repositories.ArbolUsuarioRepository;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,9 @@ public class ArbolServiceImpl implements ArbolService {
     @Autowired
     private EntityManager entityManager;
     @Autowired
-    private ArbolRepository repo;
+    private ArbolUsuarioRepository repoArbolUsuario;
+    @Autowired
+    private ArbolRepository repoArbol;
 
     @Override
     public Arbol getArbol(Double precio) {
@@ -33,7 +36,8 @@ public class ArbolServiceImpl implements ArbolService {
     @Override
     public List<Arbol> getArbolesUsuario(Biciusuario usuario) {
 
-        Optional<List<ArbolBiciusuario>> arbolesUsua = Optional.ofNullable(repo.getArbolesPorUsuario(usuario));
+        Optional<List<ArbolBiciusuario>> arbolesUsua = Optional
+                .ofNullable(repoArbolUsuario.getArbolesPorUsuario(usuario));
         if (arbolesUsua.isPresent()) {
             List<Arbol> arboles = new ArrayList<>();
             for (ArbolBiciusuario arbolUsua : arbolesUsua.get()) {
@@ -46,11 +50,13 @@ public class ArbolServiceImpl implements ArbolService {
 
     @Override
     public List<Arbol> getTodosArboles() {
-        List<ArbolBiciusuario> listaArbolUsuario = repo.findAll();
-        List<Arbol> arboles = new ArrayList<>();
-        for (ArbolBiciusuario temp : listaArbolUsuario)
-            arboles.add(temp.getArbol());
+        List<Arbol> arboles = repoArbol.findAll();
         return arboles;
+    }
+
+    @Override
+    public ArbolBiciusuario anadirArbol(ArbolBiciusuario arbolUsuario) {
+        return repoArbolUsuario.save(arbolUsuario);
     }
 
 }

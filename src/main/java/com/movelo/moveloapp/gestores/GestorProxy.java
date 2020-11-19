@@ -49,8 +49,8 @@ public class GestorProxy {
         return user;
     }
 
-    public boolean finalizarRecorrido(List<RegistroGeografico> listaPuntos, Double distanciaTotal) {
-        return facadeGestores.finalizarRecorrido(listaPuntos, distanciaTotal, usuarioActual);
+    public boolean finalizarRecorrido(List<RegistroGeografico> listaPuntos, Double distanciaTotal, String correo) {
+        return facadeGestores.finalizarRecorrido(listaPuntos, distanciaTotal, getBiciusuario(correo));
     }
 
     public List<Arbol> getArbolesPorUsuario(String correo) {
@@ -60,7 +60,8 @@ public class GestorProxy {
     public boolean actualizarDistancia(String correo, Double kmRecorridos) {
         return facadeGestores.actualizarDistancia(correo, kmRecorridos);
     }
-    public double huella(Biciusuario rider, double huella){
+
+    public double huella(Biciusuario rider, double huella) {
         facadeGestores.calcularHuellaTotal(rider);
         return huella;
     }
@@ -75,6 +76,10 @@ public class GestorProxy {
 
     public List<Arbol> getTodosArbol() {
         return facadeGestores.getTodosArboles();
+    }
+
+    public boolean anadirArbol(String correo, Double precio) {
+        return facadeGestores.anadirArbol(getBiciusuario(correo), precio);
     }
 
 }

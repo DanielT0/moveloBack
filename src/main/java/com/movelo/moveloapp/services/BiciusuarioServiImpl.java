@@ -32,7 +32,6 @@ public class BiciusuarioServiImpl implements BiciusuarioService {
     @Override
     @Transactional(readOnly = true)
     public Optional<Biciusuario> findByEmail(String email) {
-
         return repo.findById(email);
     }
 
