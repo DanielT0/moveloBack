@@ -99,4 +99,8 @@ public class FacadeGestores {
         double huella = gestorHuellaCarbono.calcularHuellaRecorrido(recorrido);
         return huella;
     }
+
+    public boolean anadirArbol(Biciusuario usuario, Double precio) {
+        return gestArboles.anadirArbol(usuario, precio);
+    }
 }

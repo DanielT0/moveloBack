@@ -19,7 +19,7 @@ public class RutasController {
 
     @PostMapping
     public ResponseEntity<?> saveRoute(@RequestBody PostRouteWrapper wrapper) {
-        boolean saved = proxy.finalizarRecorrido(wrapper.getPoints(), wrapper.getTotalDistance());
+        boolean saved = proxy.finalizarRecorrido(wrapper.getPoints(), wrapper.getTotalDistance(), wrapper.getEmail());
         String message = "la ruta fue guardada satisfactoriamente";
         HttpStatus status = HttpStatus.CREATED;
         if (!saved) {
